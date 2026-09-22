@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>H. DRAMACY DESIGN</title>
+    <!-- Google Fonts: Inter & Cormorant Garamond -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #FCFBFA;
+            color: #1A1A1A;
+            line-height: 1.7;
+            letter-spacing: -0.01em;
+        }
+
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        /* Header Style */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .brand-titles h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 22px;
+            letter-spacing: 0.15em;
+            font-weight: 400;
+            text-transform: uppercase;
+            color: #1A1A1A;
+        }
+
+        .menu-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 24px;
+            height: 14px;
+            padding: 0;
+            z-index: 1001;
+            position: relative;
+        }
+
+        .menu-btn span {
+            display: block;
+            width: 100%;
+            height: 1px;
+            background-color: #1A1A1A;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .menu-btn.active span:nth-child(1) {
+            transform: translateY(6.5px) rotate(45deg);
+        }
+
+        .menu-btn.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-btn.active span:nth-child(3) {
+            transform: translateY(-6.5px) rotate(-45deg);
+        }
+
+        .divider {
+            width: 100%;
+            height: 1px;
+            background-color: #EFECE6;
+            margin-bottom: 32px;
+        }
+
+        /* International Minimalist Animated Logo Showcase */
+        .logo-showcase {
+            width: 100%;
+            height: 320px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #FFFFFF;
+            border: 1px solid #EFECE6;
+            margin-bottom: 32px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.01);
+        }
+
+        .international-logo-svg {
+            width: 90px;
+            height: 90px;
+            margin-bottom: 20px;
+        }
+
+        .geo-line {
+            stroke: #1A1A1A;
+            stroke-width: 1.25;
+            fill: none;
+            stroke-linecap: square;
+            stroke-dasharray: 300;
+            stroke-dashoffset: 300;
+            animation: internationalDraw 4s cubic-bezier(0.25, 1, 0.5, 1) infinite alternate;
+        }
+
+        .geo-accent {
+            stroke: #8C887E;
+            stroke-width: 1;
+            fill: none;
+            stroke-dasharray: 200;
+            stroke-dashoffset: 200;
+            animation: internationalDraw 4s cubic-bezier(0.25, 1, 0.5, 1) 0.3s infinite alternate;
+        }
+
+        @keyframes internationalDraw {
+            0% {
+                stroke-dashoffset: 300;
+                opacity: 0;
+            }
+            50% {
+                stroke-dashoffset: 0;
+                opacity: 1;
+            }
+            100% {
+                stroke-dashoffset: 0;
+                opacity: 1;
+            }
+        }
+
+        .logo-caption {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 13px;
+            letter-spacing: 0.3em;
+            color: #615E58;
+            text-transform: uppercase;
+            font-weight: 300;
+            opacity: 0;
+            animation: fadeInCaption 4s ease infinite alternate;
+        }
+
+        @keyframes fadeInCaption {
+            0%, 30% { opacity: 0; transform: translateY(4px); }
+            70%, 100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Contact Details on Front Page */
+        .front-contact {
+            text-align: right;
+            font-size: 13px;
+            color: #595650;
+            margin-bottom: 40px;
+            line-height: 1.8;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+        }
+
+        .front-contact p {
+            margin-bottom: 2px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            font-size: 10px;
+            color: #7B7973;
+            padding-top: 10px;
+            margin-bottom: 20px;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            font-weight: 300;
+        }
+
+        /* Fullscreen Overlay Menu */
+        .overlay-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #FCFBFA;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.5s;
+        }
+
+        .overlay-menu.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .menu-links {
+            list-style: none;
+            text-align: center;
+        }
+
+        .menu-links li {
+            margin: 20px 0;
+        }
+
+        .menu-links a {
+            font-family: 'Cormorant Garamond', serif;
+            text-decoration: none;
+            font-size: 28px;
+            color: #1A1A1A;
+            font-weight: 300;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        .menu-links a:hover {
+            color: #7B7973;
+        }
+
+        /* Professional Modal Content Sections */
+        .content-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #FCFBFA;
+            z-index: 1002;
+            overflow-y: auto;
+            padding: 60px 24px;
+            display: none;
+            animation: fadeInModal 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes fadeInModal {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-modal-inner {
+            max-width: 680px;
+            margin: 0 auto;
+        }
+
+        .back-to-home {
+            background: none;
+            border: none;
+            font-size: 11px;
+            cursor: pointer;
+            margin-bottom: 40px;
+            color: #1A1A1A;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            font-weight: 400;
+        }
+
+        .back-to-home:hover {
+            color: #7B7973;
+        }
+
+        .content-modal h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 28px;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-weight: 400;
+            color: #1A1A1A;
+        }
+
+        /* About Static Logo Styling (តូចល្មម គ្មានចលនា) */
+        .about-logo-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .about-static-logo {
+            width: 70px;
+            height: 70px;
+        }
+
+        .intro-text {
+            font-size: 14px;
+            color: #4A4741;
+            margin-bottom: 36px;
+            line-height: 1.8;
+            font-weight: 300;
+            text-align: justify;
+        }
+
+        .pro-item {
+            padding: 24px 0;
+            border-bottom: 1px solid #EFECE6;
+        }
+
+        .pro-item:first-of-type {
+            border-top: 1px solid #EFECE6;
+        }
+
+        .pro-item h3 {
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            color: #7B7973;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            font-weight: 400;
+        }
+
+        .pro-item a, .pro-item p {
+            font-size: 15px;
+            color: #1A1A1A;
+            text-decoration: none;
+            font-weight: 300;
+            transition: color 0.2s;
+        }
+
+        .pro-item p {
+            text-align: justify;
+            color: #4A4741;
+        }
+
+        .pro-item a:hover {
+            color: #7B7973;
+        }
+
+        /* Service Menu Rows */
+        .service-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 0;
+            border-bottom: 1px solid #EFECE6;
+            text-decoration: none;
+            color: #1A1A1A;
+            transition: padding-left 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s;
+        }
+
+        .service-row:first-of-type {
+            border-top: 1px solid #EFECE6;
+        }
+
+        .service-row:hover {
+            padding-left: 6px;
+            color: #7B7973;
+        }
+
+        .service-row-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 20px;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .service-row-arrow {
+            font-size: 16px;
+            font-weight: 300;
+        }
+
+        .sub-service-detail {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="brand-titles">
+                <h1>H. Dramacy Design</h1>
+            </div>
+            <button class="menu-btn" id="menuBtn" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </header>
+
+        <div class="divider"></div>
+
+        <!-- Logo Showcase -->
+        <div class="logo-showcase">
+            <svg class="international-logo-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <rect class="geo-accent" x="15" y="15" width="70" height="70" />
+                <path class="geo-line" d="M35 25 V75 M65 25 V75 M35 50 H65" />
+                <circle class="geo-accent" cx="50" cy="50" r="3" fill="#1A1A1A" />
+            </svg>
+            <div class="logo-caption">H. Dramacy</div>
+        </div>
+
+        <!-- Contact Details on Front Page -->
+        <div class="front-contact">
+            <p>+855 96 5212979</p>
+            <p>hourminimalist@gmail.com</p>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Footer -->
+        <footer>
+            H. Dramacy Design © 2026
+        </footer>
+    </div>
+
+    <!-- Fullscreen Overlay Menu -->
+    <div class="overlay-menu" id="overlayMenu">
+        <ul class="menu-links">
+            <li><a href="#" onclick="openSection('aboutSection')">About</a></li>
+            <li><a href="#" onclick="openSection('serviceSection')">Service</a></li>
+            <li><a href="#" onclick="openSection('contactSection')">Contact</a></li>
+        </ul>
+    </div>
+
+    <!-- ABOUT SECTION MODAL -->
+    <div class="content-modal" id="aboutSection">
+        <div class="content-modal-inner">
+            <button class="back-to-home" onclick="closeSections()">← Back</button>
+            <h2>About</h2>
+            
+            <!-- Static Logo (មិនមានចលនា ទំហំតូចល្មម) -->
+            <div class="about-logo-container">
+                <svg class="about-static-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="15" y="15" width="70" height="70" stroke="#8C887E" stroke-width="1" fill="none" />
+                    <path d="M35 25 V75 M65 25 V75 M35 50 H65" stroke="#1A1A1A" stroke-width="1.25" fill="none" stroke-linecap="square" />
+                    <circle cx="50" cy="50" r="3" fill="#1A1A1A" />
+                </svg>
+            </div>
+
+            <p class="intro-text">
+                <strong>H. DRAMACY DESIGN</strong> Founded in 2025 by Menglyhour Soum, H. Dramacy Design is an independent graphic design practice built on self-taught mastery, practical expertise, and a sharp eye for minimalist aesthetics.
+            </p>
+            
+            <h3 style="font-size: 10px; letter-spacing: 0.2em; color: #7B7973; text-transform: uppercase; margin-bottom: 12px; font-weight: 400;">WORK EXPERIENCE</h3>
+            
+            <div class="pro-item" style="border-top: 1px solid #EFECE6;">
+                <h3 style="margin-bottom: 6px;">LUXDESIGN COMPANY (3 Years Experience)</h3>
+                <p>Specialized in visual layouts, branding assets, and commercial graphic design production.</p>
+            </div>
+            <div class="pro-item">
+                <h3 style="margin-bottom: 6px;">JIN XIN ADVERTISING AND DECORATION COMPANY (2 Years Experience)</h3>
+                <p>Worked within a prominent Chinese advertising and decoration enterprise, managing large-scale commercial designs, structural layouts, and print-ready executions.</p>
+            </div>
+
+            <div style="margin-top: 40px;">
+                <h3 style="font-size: 10px; letter-spacing: 0.2em; color: #7B7973; text-transform: uppercase; margin-bottom: 12px; font-weight: 400;">PROFESSIONAL STANDARDS</h3>
+                <p class="intro-text" style="margin-bottom: 0;">
+                    True proficiency in design is proven through real-world experience, practical execution, and a strong sense of taste rather than formal academic credentials. Backed by 5 years of solid hands-on industry experience, every project is delivered with absolute precision, professional adaptability, and a commitment to timeless visual quality.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SERVICE SECTION MODAL -->
+    <div class="content-modal" id="serviceSection">
+        <div class="content-modal-inner" id="serviceMainView">
+            <button class="back-to-home" onclick="closeSections()">← Back</button>
+            <h2>Service</h2>
+            <p class="intro-text">Tailored design solutions for modern business branding and commercial signage. Select an option below:</p>
+            
+            <a href="#" class="service-row" onclick="openSubService('subTrademarks')">
+                <span class="service-row-title">Trademarks & Logos</span>
+                <span class="service-row-arrow">→</span>
+            </a>
+            <a href="#" class="service-row" onclick="openSubService('subCommercialSigns')">
+                <span class="service-row-title">Commercial Signs</span>
+                <span class="service-row-arrow">→</span>
+            </a>
+            <a href="#" class="service-row" onclick="openSubService('subDigitalGraphic')">
+                <span class="service-row-title">Digital Graphic Design</span>
+                <span class="service-row-arrow">→</span>
+            </a>
+            <a href="#" class="service-row" onclick="openSubService('subExteriorDesign')">
+                <span class="service-row-title">Exterior Commercial Design</span>
+                <span class="service-row-arrow">→</span>
+            </a>
+        </div>
+
+        <div class="content-modal-inner sub-service-detail" id="subTrademarks">
+            <button class="back-to-home" onclick="backToServiceMain()">← Back to Services</button>
+            <h2>Trademarks & Logos</h2>
+            <p class="intro-text">Creating unique, memorable, and minimalist trademarks & business brand names/logos tailored to represent your company identity with absolute precision.</p>
+        </div>
+
+        <div class="content-modal-inner sub-service-detail" id="subCommercialSigns">
+            <button class="back-to-home" onclick="backToServiceMain()">← Back to Services</button>
+            <h2>Commercial Signs</h2>
+            <p class="intro-text">Designing high-visibility, professional commercial & business signs that capture customer attention and enhance street appeal.</p>
+        </div>
+
+        <div class="content-modal-inner sub-service-detail" id="subDigitalGraphic">
+            <button class="back-to-home" onclick="backToServiceMain()">← Back to Services</button>
+            <h2>Digital Graphic Design</h2>
+            <p class="intro-text">Social Media Ads & Promotional Graphics designed to boost engagement and elevate your brand's digital presence.</p>
+        </div>
+
+        <div class="content-modal-inner sub-service-detail" id="subExteriorDesign">
+            <button class="back-to-home" onclick="backToServiceMain()">← Back to Services</button>
+            <h2>Exterior Commercial Design</h2>
+            <p class="intro-text">Transforming the outside of your business with modern, attractive, and functional architectural concepts that create a powerful first impression and draw in customers.</p>
+        </div>
+    </div>
+
+    <!-- CONTACT SECTION MODAL -->
+    <div class="content-modal" id="contactSection">
+        <div class="content-modal-inner">
+            <button class="back-to-home" onclick="closeSections()">← Back</button>
+            <h2>Contact</h2>
+            <p class="intro-text">
+                Let's Work Together.<br>
+                Feel free to reach out via phone, telegram, or email for inquiries, collaborations, and new projects.
+            </p>
+            
+            <div class="pro-item">
+                <h3>Phone / Telegram</h3>
+                <a href="tel:+855965212979">+855 96 5212979</a>
+            </div>
+            
+            <div class="pro-item">
+                <h3>Email Address</h3>
+                <a href="mailto:hourminimalist@gmail.com">hourminimalist@gmail.com</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('overlayMenu');
+            const menuBtn = document.getElementById('menuBtn');
+            menu.classList.toggle('active');
+            menuBtn.classList.toggle('active');
+        }
+
+        function openSection(sectionId) {
+            toggleMenu();
+            document.getElementById(sectionId).style.display = 'block';
+            if(sectionId === 'serviceSection') {
+                backToServiceMain();
+            }
+        }
+
+        function closeSections() {
+            const modals = document.querySelectorAll('.content-modal');
+            modals.forEach(modal => {
+                modal.style.display = 'none';
+            });
+            document.getElementById('menuBtn').classList.remove('active');
+            document.getElementById('overlayMenu').classList.remove('active');
+        }
+
+        function openSubService(subId) {
+            document.getElementById('serviceMainView').style.display = 'none';
+            const subs = document.querySelectorAll('.sub-service-detail');
+            subs.forEach(sub => sub.style.display = 'none');
+            document.getElementById(subId).style.display = 'block';
+        }
+
+        function backToServiceMain() {
+            const subs = document.querySelectorAll('.sub-service-detail');
+            subs.forEach(sub => sub.style.display = 'none');
+            document.getElementById('serviceMainView').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
+
